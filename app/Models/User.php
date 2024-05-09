@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements FilamentUser
@@ -54,7 +55,7 @@ class User extends Authenticatable implements FilamentUser
     protected static function booted(): void
     {
         static::creating(function ($user) {
-            $user->password = Hash::make('password');
+            $user->password = Hash::make(Str::random(10));
         });
     }
 }
