@@ -9,7 +9,8 @@
         "bezhansalleh/filament-shield": "^3.2",
         "filament/filament": "^3.2",
         "laravel/framework": "^11.0",
-        "laravel/tinker": "^2.9"
+        "laravel/tinker": "^2.9",
+        "gigcodes/clickup-php": "dev-master"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
@@ -33,6 +34,10 @@
             "Tests\\": "tests/"
         }
     },
+    "repositories": [{
+        "url": "https://github.com/gigcodes/clickup-php",
+        "type": "git"
+    }],
     "scripts": {
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
