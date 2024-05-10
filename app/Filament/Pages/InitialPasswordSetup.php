@@ -28,8 +28,8 @@ class InitialPasswordSetup extends Page
 
     public function mount(): void
     {
-        if (Filament::auth()->check() && auth()->user()->is_onboarded) {
-            redirect()->intended(Filament::getUrl());
+        if (Filament::auth()->check() && auth()->user()->is_password_reset) {
+            redirect()->intended(Onboard::getUrl());
         }
     }
 
