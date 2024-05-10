@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Http\Middleware\UserStatusMiddleware;
 use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -26,8 +27,8 @@ class AdminPanelProvider extends PanelProvider
         return $panel
             ->default()
             ->id('admin')
-            ->path('admin')
             ->login()
+            ->path('admin')
             ->colors([
                 'primary' => Color::Amber,
             ])
@@ -51,11 +52,12 @@ class AdminPanelProvider extends PanelProvider
                 SubstituteBindings::class,
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
+                UserStatusMiddleware::class
             ])
             ->authMiddleware([
                 Authenticate::class,
             ])->plugins([
-                FilamentShieldPlugin::make()
+                FilamentShieldPlugin::make(),
             ]);
     }
 }
