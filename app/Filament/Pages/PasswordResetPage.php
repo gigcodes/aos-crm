@@ -2,7 +2,6 @@
 
 namespace App\Filament\Pages;
 
-use App\Http\Responses\InitialPasswordSetupResponse;
 use Filament\Actions\Action;
 use Filament\Facades\Filament;
 use Filament\Forms\Components\Component;
@@ -12,10 +11,11 @@ use Filament\Notifications\Notification;
 use Filament\Pages\Concerns\InteractsWithFormActions;
 use Filament\Pages\Page;
 use Illuminate\Contracts\Support\Htmlable;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password as PasswordRule;
 
-class InitialPasswordSetup extends Page
+class PasswordResetPage extends Page
 {
     use InteractsWithFormActions;
 
@@ -26,14 +26,7 @@ class InitialPasswordSetup extends Page
 
     public ?array $data = [];
 
-    public function mount(): void
-    {
-        if (Filament::auth()->check() && auth()->user()->is_password_reset) {
-            redirect()->intended(Onboard::getUrl());
-        }
-    }
-
-    public function resetPassword()
+    public function resetPassword(): RedirectResponse
     {
         $user = auth()->user();
         $data = $this->form->getState();
@@ -49,7 +42,7 @@ class InitialPasswordSetup extends Page
             ->success()
             ->send();
 
-        return app(InitialPasswordSetupResponse::class);
+        return redirect(Onboard::getUrl());
     }
 
     public function form(Form $form): Form
