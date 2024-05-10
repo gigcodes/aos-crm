@@ -24,6 +24,7 @@ class User extends Authenticatable implements FilamentUser
         'email',
         'password',
         'is_onboarded',
+        'is_password_reset',
     ];
 
     /**
@@ -47,6 +48,7 @@ class User extends Authenticatable implements FilamentUser
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
             'is_onboarded' => 'boolean',
+            'is_password_reset' => 'boolean',
         ];
     }
 }
