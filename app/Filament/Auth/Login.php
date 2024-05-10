@@ -38,8 +38,9 @@ class Login extends SimplePage
 
     public function mount(): void
     {
-        if (Filament::auth()->check()) {
-            info(12);
+        $user = auth()->user();
+
+        if (Filament::auth()->check() && $user->is_password_reset && $user->is_onboarded) {
             redirect()->intended(Filament::getUrl());
         }
 

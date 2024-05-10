@@ -12,7 +12,6 @@ use Filament\Notifications\Notification;
 use Filament\Pages\Concerns\InteractsWithFormActions;
 use Filament\Pages\Page;
 use Illuminate\Contracts\Support\Htmlable;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password as PasswordRule;
 
@@ -39,13 +38,16 @@ class InitialPasswordSetup extends Page
         $user = auth()->user();
         $data = $this->form->getState();
 
-        $user->update(['password' => Hash::make($data['password'])]);
+        $user->update([
+            'password' => Hash::make($data['password']),
+            'is_password_reset' => true,
+        ]);
 
-            Notification::make()
-                ->title('Password')
-                ->body('Updated successfully!')
-                ->success()
-                ->send();
+        Notification::make()
+            ->title('Password')
+            ->body('Updated successfully!')
+            ->success()
+            ->send();
 
         return app(InitialPasswordSetupResponse::class);
     }
@@ -114,5 +116,12 @@ class InitialPasswordSetup extends Page
     public function hasLogo(): bool
     {
         return true;
+    }
+
+    protected function getLayoutData(): array
+    {
+        return [
+            'hasTopbar' => false,
+        ];
     }
 }

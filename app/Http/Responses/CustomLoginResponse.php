@@ -12,9 +12,9 @@ class CustomLoginResponse extends LoginResponse
 {
     public function toResponse($request): RedirectResponse|Redirector
     {
-        if ($request->user()->is_onboarded) {
-            return redirect()->intended(Filament::getUrl());
-        }
+//        if ($request->user()->is_onboarded) {
+//            return redirect()->intended(Filament::getUrl());
+//        }
         return redirect(InitialPasswordSetup::getUrl());
     }
 }
