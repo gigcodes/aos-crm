@@ -14,9 +14,9 @@ class LoginRequest extends Notification
     /**
      * Create a new notification instance.
      */
-    public function __construct()
+    public function __construct(protected string $temporaryPassword)
     {
-        //
+       //
     }
 
     /**
@@ -36,10 +36,10 @@ class LoginRequest extends Notification
     {
         return (new MailMessage)
             ->subject('Hello'.' '.$notifiable->name)
-            ->line('You have requested to log in to your account. Here is your temporary password:')
-            ->line('Temporary Password: ' . $notifiable->password)
-            ->action('Reset Your Password', $this->resetUrl($notifiable))
-            ->line('This password is only valid for a limited time. Please reset your password using the link provided.')
+            ->line('Welcome to our application! Here is your temporary password for initial login:')
+            ->line('Temporary Password: ' . $this->temporaryPassword)
+            ->action('Login Now', url(Filament::getLoginUrl()))
+            ->line('Please use this temporary password to log in and change your password immediately. This temporary password will expire shortly.')
             ->line('Thank you for using our application!');
     }
 
@@ -53,11 +53,5 @@ class LoginRequest extends Notification
         return [
             //
         ];
-    }
-
-    protected function resetUrl(mixed $notifiable): string
-    {
-        $token = app('auth.password.broker')->createToken($notifiable);
-        return Filament::getResetPasswordUrl($token, $notifiable);
     }
 }
