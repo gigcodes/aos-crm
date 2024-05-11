@@ -10,7 +10,6 @@ use Filament\Notifications\Notification;
 use Filament\Pages\Concerns\InteractsWithFormActions;
 use Filament\Pages\Page;
 use Illuminate\Contracts\Support\Htmlable;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password as PasswordRule;
 
@@ -26,7 +25,7 @@ class PasswordResetPage extends Page
 
     public ?array $data = [];
 
-    public function resetPassword(): RedirectResponse
+    public function resetPassword()
     {
         $user = auth()->user();
         $data = $this->form->getState();
@@ -34,6 +33,10 @@ class PasswordResetPage extends Page
         $user->update([
             'password' => Hash::make($data['password']),
             'is_password_reset' => true,
+        ]);
+
+        session()->put([
+            'password_hash_web' => $user->password,
         ]);
 
         Notification::make()
