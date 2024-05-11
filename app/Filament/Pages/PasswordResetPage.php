@@ -18,7 +18,7 @@ class PasswordResetPage extends Page
 
     protected static string $layout = 'filament-panels::components.layout.simple';
 
-    protected static string $view = 'filament.pages.initial-password-setup';
+    protected static string $view = 'filament.pages.password-reset-page';
 
     protected static bool $shouldRegisterNavigation = false;
 
