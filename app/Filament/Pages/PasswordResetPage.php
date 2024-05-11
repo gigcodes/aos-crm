@@ -3,7 +3,6 @@
 namespace App\Filament\Pages;
 
 use Filament\Actions\Action;
-use Filament\Forms\Components\Component;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Notifications\Notification;
@@ -24,6 +23,28 @@ class PasswordResetPage extends Page
     protected static bool $shouldRegisterNavigation = false;
 
     public ?array $data = [];
+
+    public function form(Form $form): Form
+    {
+        return $form
+            ->schema([
+                TextInput::make('password')
+                    ->label(__('filament-panels::pages/auth/password-reset/reset-password.form.password.label'))
+                    ->password()
+                    ->revealable(filament()->arePasswordsRevealable())
+                    ->required()
+                    ->rule(PasswordRule::default())
+                    ->same('passwordConfirmation')
+                    ->validationAttribute(__('filament-panels::pages/auth/password-reset/reset-password.form.password.validation_attribute')),
+                TextInput::make('passwordConfirmation')
+                    ->label(__('filament-panels::pages/auth/password-reset/reset-password.form.password_confirmation.label'))
+                    ->password()
+                    ->revealable(filament()->arePasswordsRevealable())
+                    ->required()
+                    ->dehydrated(false),
+            ])
+            ->statePath('data');
+    }
 
     public function resetPassword()
     {
@@ -48,38 +69,6 @@ class PasswordResetPage extends Page
         return redirect(Onboard::getUrl());
     }
 
-    public function form(Form $form): Form
-    {
-        return $form
-            ->schema([
-                $this->getPasswordFormComponent(),
-                $this->getPasswordConfirmationFormComponent(),
-            ])
-            ->statePath('data');
-    }
-
-    protected function getPasswordFormComponent(): Component
-    {
-        return TextInput::make('password')
-            ->label(__('filament-panels::pages/auth/password-reset/reset-password.form.password.label'))
-            ->password()
-            ->revealable(filament()->arePasswordsRevealable())
-            ->required()
-            ->rule(PasswordRule::default())
-            ->same('passwordConfirmation')
-            ->validationAttribute(__('filament-panels::pages/auth/password-reset/reset-password.form.password.validation_attribute'));
-    }
-
-    protected function getPasswordConfirmationFormComponent(): Component
-    {
-        return TextInput::make('passwordConfirmation')
-            ->label(__('filament-panels::pages/auth/password-reset/reset-password.form.password_confirmation.label'))
-            ->password()
-            ->revealable(filament()->arePasswordsRevealable())
-            ->required()
-            ->dehydrated(false);
-    }
-
     public function getTitle(): string|Htmlable
     {
         return __('filament-panels::pages/auth/password-reset/reset-password.title');
@@ -93,15 +82,10 @@ class PasswordResetPage extends Page
     protected function getFormActions(): array
     {
         return [
-            $this->getResetPasswordFormAction(),
+            Action::make('resetPassword')
+                ->label(__('filament-panels::pages/auth/password-reset/reset-password.form.actions.reset.label'))
+                ->submit('resetPassword'),
         ];
-    }
-
-    public function getResetPasswordFormAction(): Action
-    {
-        return Action::make('resetPassword')
-            ->label(__('filament-panels::pages/auth/password-reset/reset-password.form.actions.reset.label'))
-            ->submit('resetPassword');
     }
 
     protected function hasFullWidthFormActions(): bool
