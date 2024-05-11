@@ -8,37 +8,45 @@ use Closure;
 use Filament\Facades\Filament;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
 
 class UserStatusMiddleware
 {
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::check()) {
-            $user = Auth::user();
+        if (! Auth::check()) {
+            return $next($request);
+        }
 
-            // Check if the user needs password reset
-            if (!$user->is_password_reset) {
-                if (!$request->routeIs('filament.admin.pages.password-reset-page')) {
-                    return redirect(PasswordResetPage::getUrl());
-                }
-            } else {
-                // Redirect away from the password reset page if they're already reset
-                if ($request->routeIs('filament.admin.pages.password-reset-page')) {
-                    return redirect(Filament::getUrl()); // Redirect to homepage or dashboard
-                }
+        $user = Auth::user();
+        $passwordResetPage = 'filament.admin.pages.password-reset-page';
+        $onboardPage = 'filament.admin.pages.onboard';
+
+        // Prioritize redirect to password reset page if user not completed both password reset and onboard
+        if (! $user->is_password_reset && ! $user->is_onboarded) {
+            if (! $request->routeIs($passwordResetPage)) {
+                return redirect(PasswordResetPage::getUrl());
+            }
+        }
+
+        if ($user->is_password_reset || $user->is_onboarded) {
+            // Redirect to the password reset page if it's not completed and not already on that page
+            if (! $user->is_password_reset && ! $request->routeIs($passwordResetPage)) {
+                return redirect(PasswordResetPage::getUrl());
             }
 
-            // Check if the user needs onboarding
-            if (!$user->is_onboarded) {
-                if (!$request->routeIs('filament.admin.pages.onboard')) {
-                    return redirect(Onboard::getUrl());
-                }
-            } else {
-                // Redirect away from the onboarding page if they're already onboarded
-                if ($request->routeIs('filament.admin.pages.onboard')) {
-                    return redirect(Filament::getUrl()); // Redirect to homepage or dashboard
-                }
+            // Redirect away from the password reset page if it's already completed
+            if ($user->is_password_reset && $request->routeIs($passwordResetPage)) {
+                return redirect(Filament::getUrl());
+            }
+
+            // Redirect to the onboarding page if it's not completed and not already on that page
+            if (! $user->is_onboarded && ! $request->routeIs($onboardPage)) {
+                return redirect(Onboard::getUrl());
+            }
+
+            // Redirect away from the onboarding page if it's already completed
+            if ($user->is_onboarded && $request->routeIs($onboardPage)) {
+                return redirect(Filament::getUrl());
             }
         }
 
