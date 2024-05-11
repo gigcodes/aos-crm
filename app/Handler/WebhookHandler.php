@@ -17,7 +17,7 @@ class WebhookHandler extends ProcessWebhookJob
             DB::beginTransaction();
             $userData = $this->webhookCall->payload['data'] ?? null;
 
-            if (!$userData) {
+            if (! $userData) {
                 DB::rollBack();
 
                 return;
@@ -25,7 +25,7 @@ class WebhookHandler extends ProcessWebhookJob
             $temporaryPassword = Str::random(10);
             $dataExists = User::where('email', $userData['email'])->exists();
 
-            if (!$dataExists) {
+            if (! $dataExists) {
                 $user = User::firstOrCreate(['email' => $userData['email']], [...$userData, 'password' => Hash::make($temporaryPassword)]);
                 $user->assignRole('panel_user');
                 DB::commit();

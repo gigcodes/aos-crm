@@ -16,7 +16,7 @@ class LoginRequest extends Notification
      */
     public function __construct(protected string $temporaryPassword)
     {
-       //
+        //
     }
 
     /**
@@ -37,7 +37,7 @@ class LoginRequest extends Notification
         return (new MailMessage)
             ->subject('Hello'.' '.$notifiable->name)
             ->line('Welcome to our application! Here is your temporary password for initial login:')
-            ->line('Temporary Password: ' . $this->temporaryPassword)
+            ->line('Temporary Password: '.$this->temporaryPassword)
             ->action('Login Now', url(Filament::getLoginUrl()))
             ->line('Please use this temporary password to log in and change your password immediately. This temporary password will expire shortly.')
             ->line('Thank you for using our application!');

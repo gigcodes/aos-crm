@@ -12,9 +12,11 @@ use Illuminate\Contracts\Support\Htmlable;
 class Onboard extends Page
 {
     use InteractsWithFormActions;
+
     protected static string $layout = 'filament-panels::components.layout.simple';
 
     protected static string $view = 'filament.pages.onboard';
+
     protected static bool $shouldRegisterNavigation = false;
 
     public function form(Form $form): Form
@@ -34,7 +36,7 @@ class Onboard extends Page
                         ->schema([
                             // ...
                         ]),
-                ])
+                ]),
             ])
             ->statePath('data');
     }
@@ -48,6 +50,7 @@ class Onboard extends Page
     {
         return 'Onboard';
     }
+
     public function getHeading(): string|Htmlable
     {
         return 'Onboard';
@@ -65,5 +68,4 @@ class Onboard extends Page
             'maxWidth' => MaxWidth::FiveExtraLarge,
         ];
     }
-
 }

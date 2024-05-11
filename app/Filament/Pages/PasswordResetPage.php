@@ -3,7 +3,6 @@
 namespace App\Filament\Pages;
 
 use Filament\Actions\Action;
-use Filament\Facades\Filament;
 use Filament\Forms\Components\Component;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
@@ -22,6 +21,7 @@ class PasswordResetPage extends Page
     protected static string $layout = 'filament-panels::components.layout.simple';
 
     protected static string $view = 'filament.pages.initial-password-setup';
+
     protected static bool $shouldRegisterNavigation = false;
 
     public ?array $data = [];
