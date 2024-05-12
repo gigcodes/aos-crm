@@ -3,6 +3,7 @@
 namespace App\Filament\Pages;
 
 use Filament\Actions\Action;
+use Filament\Facades\Filament;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Notifications\Notification;
@@ -56,9 +57,11 @@ class PasswordResetPage extends Page
             'is_password_reset' => true,
         ]);
 
-        session()->put([
-            'password_hash_web' => $user->password,
-        ]);
+        if (request()->hasSession()) {
+            request()->session()->put([
+                'password_hash_'.Filament::getAuthGuard() => $user->password,
+            ]);
+        }
 
         Notification::make()
             ->title('Password')
