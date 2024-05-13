@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ClickupController;
 use Illuminate\Support\Facades\Route;
 
 Route::redirect('/', '/login');
@@ -9,3 +10,5 @@ Route::get('/login', function () {
 })->name('login');
 
 Route::webhooks('webhook-url');
+
+Route::get('/test',[ClickupController::class, 'getTasks']);
