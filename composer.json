@@ -10,7 +10,11 @@
         "filament/filament": "^3.2",
         "laravel/framework": "^11.0",
         "laravel/tinker": "^2.9",
+<<<<<<< HEAD
         "gigcodes/clickup-php": "dev-master"
+=======
+        "spatie/laravel-webhook-client": "^3.3"
+>>>>>>> origin/main
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
