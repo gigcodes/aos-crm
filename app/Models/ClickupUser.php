@@ -8,12 +8,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class ClickupUser extends Model
+class ClickUpUser extends Model
 {
     protected $fillable = [
-        'name',
+        'username',
         'email',
-        'clickup_id',
+        'click_up_id',
+        'initials',
+        'profile_picture',
         'team_id'
     ];
 

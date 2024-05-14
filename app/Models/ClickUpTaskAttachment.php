@@ -11,7 +11,7 @@ class ClickUpTaskAttachment extends Model
 {
     protected $fillable = [
         'task_id',
-        'clickup_id',
+        'click_up_id',
         'file_path',
     ];
 

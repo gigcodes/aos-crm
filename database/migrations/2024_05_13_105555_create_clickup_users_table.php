@@ -10,9 +10,11 @@ return new class extends Migration {
     {
         Schema::create('click_up_users', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->nullable();
+            $table->string('username')->nullable();
             $table->string('email')->nullable();
             $table->string('click_up_id');
+            $table->string('initials')->nullable();
+            $table->string('profile_picture')->nullable();
             $table->foreignIdFor(ClickUpTeam::class)->constrained();
             $table->timestamps();
         });

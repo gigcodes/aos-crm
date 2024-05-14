@@ -13,7 +13,7 @@ class ClickUpTaskComment extends Model
         'content',
         'author_name',
         'author_email',
-        'clickup_id',
+        'click_up_id',
         'task_id'
     ];
 

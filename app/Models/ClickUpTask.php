@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Builder;
 class ClickUpTask extends Model
 {
     protected $fillable = [
-        'clickup_id',
+        'click_up_id',
         'name',
         'text_content',
         'description',
@@ -35,17 +35,17 @@ class ClickUpTask extends Model
 
     public function creator(): BelongsTo
     {
-        return $this->belongsTo(ClickupUser::class, 'creator_id');
+        return $this->belongsTo(ClickUpUser::class, 'creator_id');
     }
 
-    public function assignees(): BelongsTo
+    public function assignees(): HasMany
     {
-        return $this->belongsTo(ClickupUser::class, 'assignees');
+        return $this->hasMany(ClickUpUser::class);
     }
 
-    public function watchers(): BelongsTo
+    public function watchers(): HasMany
     {
-        return $this->belongsTo(ClickupUser::class, 'watchers');
+        return $this->hasMany(ClickUpUser::class, 'watchers');
     }
 
     public function team(): BelongsTo

@@ -12,7 +12,7 @@ class ClickUpFolder extends Model
 {
     protected $fillable = [
         'name',
-        'clickup_id',
+        'click_up_id',
         'space_id'
     ];
 

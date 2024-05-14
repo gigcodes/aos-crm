@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class ClickUpTeam extends Model
 {
     protected $fillable = [
-        'clickup_id',
+        'click_up_id',
         'name',
     ];
 

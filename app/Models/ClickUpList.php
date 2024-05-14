@@ -13,7 +13,7 @@ class ClickUpList extends Model
 {
     protected $fillable = [
         'name',
-        'clickup_id',
+        'click_up_id',
         'folder_id',
     ];
 

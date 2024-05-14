@@ -1,7 +1,7 @@
 <?php
 
 use App\Models\ClickUpTeam;
-use App\Models\ClickupUser;
+use App\Models\ClickUpUser;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -22,7 +22,7 @@ return new class extends Migration {
             $table->string('permission_level')->nullable();
             $table->string('priority');
             $table->unsignedBigInteger('parent_id')->nullable();
-            $table->foreignIdFor(ClickupUser::class);
+            $table->foreignIdFor(ClickUpUser::class);
             $table->foreignIdFor(ClickUpTeam::class);
             $table->timestamps();
         });
