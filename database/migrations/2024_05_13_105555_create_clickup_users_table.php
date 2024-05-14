@@ -15,7 +15,7 @@ return new class extends Migration {
             $table->string('click_up_id');
             $table->string('initials')->nullable();
             $table->string('profile_picture')->nullable();
-            $table->foreignIdFor(ClickUpTeam::class)->constrained();
+            $table->foreignIdFor(ClickUpTeam::class)->nullable()->constrained();
             $table->timestamps();
         });
     }
