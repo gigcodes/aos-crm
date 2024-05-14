@@ -31,4 +31,6 @@ return [
         ],
     ],
 
+    'clickup_api_key' => env('CLICKUP_API_KEY')
+
 ];
