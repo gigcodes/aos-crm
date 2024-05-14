@@ -16,11 +16,11 @@ return new class extends Migration {
             $table->string('name');
             $table->string('text_content')->nullable();
             $table->string('description')->nullable();
-            $table->dateTime('date_closed')->nullable();
-            $table->dateTime('date_done')->nullable();
+            $table->dateTime('start_date')->nullable();
+            $table->dateTime('due_date')->nullable();
             $table->boolean('archived')->default(false);
             $table->string('permission_level')->nullable();
-            $table->string('priority');
+            $table->string('priority')->nullable();
             $table->unsignedBigInteger('parent_id')->nullable();
             $table->foreignIdFor(ClickUpUser::class);
             $table->foreignIdFor(ClickUpTeam::class);

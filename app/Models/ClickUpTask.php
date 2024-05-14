@@ -16,15 +16,13 @@ class ClickUpTask extends Model
         'name',
         'text_content',
         'description',
-        'date_closed',
-        'date_done',
+        'start_date',
+        'due_date',
         'archived',
         'permission_level',
         'priority',
         'parent_id',
         'creator_id',
-        'assignees',
-        'watchers',
         'team_id'
     ];
 
@@ -56,8 +54,8 @@ class ClickUpTask extends Model
     protected function casts()
     {
         return [
-            'date_closed' => 'datetime',
-            'date_done' => 'datetime',
+            'start_date' => 'datetime',
+            'due_date' => 'datetime',
         ];
     }
 }
