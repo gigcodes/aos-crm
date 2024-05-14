@@ -4,20 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Space extends Model
+class ClickUpTaskAttachment extends Model
 {
-    use SoftDeletes, HasFactory;
-
     protected $fillable = [
-        'name',
+        'task_id',
         'clickup_id',
+        'file_path',
     ];
 
-    public function folders(): HasMany
+    public function task(): BelongsTo
     {
-        return $this->hasMany(Folder::class);
+        return $this->belongsTo(ClickUpTask::class);
     }
 }

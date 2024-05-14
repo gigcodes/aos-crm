@@ -7,18 +7,18 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Attachments extends Model
+class ClickUpTaskComment extends Model
 {
-    use SoftDeletes, HasFactory;
-
     protected $fillable = [
-        'task_id',
+        'content',
+        'author_name',
+        'author_email',
         'clickup_id',
-        'file_path',
+        'task_id'
     ];
 
     public function task(): BelongsTo
     {
-        return $this->belongsTo(Task::class);
+        return $this->belongsTo(ClickUpTask::class);
     }
 }

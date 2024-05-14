@@ -4,20 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Team extends Model
+class ClickUpSpace extends Model
 {
-    use SoftDeletes, HasFactory;
-
     protected $fillable = [
-        'clickup_id',
         'name',
+        'clickup_id',
     ];
 
-    public function users(): BelongsToMany
+    public function folders(): HasMany
     {
-        return $this->belongsToMany(User::class);
+        return $this->hasMany(ClickUpFolder::class);
     }
 }

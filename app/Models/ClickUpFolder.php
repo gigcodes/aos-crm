@@ -8,10 +8,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Folder extends Model
+class ClickUpFolder extends Model
 {
-    use SoftDeletes, HasFactory;
-
     protected $fillable = [
         'name',
         'clickup_id',
@@ -20,11 +18,11 @@ class Folder extends Model
 
     public function space(): BelongsTo
     {
-        return $this->belongsTo(Space::class);
+        return $this->belongsTo(ClickUpSpace::class);
     }
 
     public function lists(): HasMany
     {
-        return $this->hasMany(Lists::class);
+        return $this->hasMany(ClickUpList::class);
     }
 }

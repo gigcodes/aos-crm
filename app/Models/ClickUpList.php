@@ -9,10 +9,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Lists extends Model
+class ClickUpList extends Model
 {
-    use SoftDeletes, HasFactory;
-
     protected $fillable = [
         'name',
         'clickup_id',
@@ -21,11 +19,11 @@ class Lists extends Model
 
     public function folder(): BelongsTo
     {
-        return $this->belongsTo(Folder::class);
+        return $this->belongsTo(ClickUpFolder::class);
     }
 
     public function tasks(): HasMany
     {
-        return $this->hasMany(Task::class);
+        return $this->hasMany(ClickUpTask::class);
     }
 }

@@ -4,21 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class ClickupUser extends Model
+class ClickUpTeam extends Model
 {
     protected $fillable = [
-        'name',
-        'email',
         'clickup_id',
-        'team_id'
+        'name',
     ];
 
-    public function teams(): BelongsToMany
+    public function users(): BelongsToMany
     {
-        return $this->belongsToMany(ClickUpTeam::class);
+        return $this->belongsToMany(User::class);
     }
 }

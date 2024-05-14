@@ -4,7 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\TasksResource\Pages;
 use App\Filament\Resources\TasksResource\RelationManagers;
-use App\Models\Task;
+use App\Models\ClickUpTask;
 use App\Models\Tasks;
 use Filament\Forms;
 use Filament\Forms\Form;

@@ -9,10 +9,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Builder;
 
-class Task extends Model
+class ClickUpTask extends Model
 {
-    use SoftDeletes, HasFactory;
-
     protected $fillable = [
         'clickup_id',
         'name',
@@ -23,28 +21,21 @@ class Task extends Model
         'archived',
         'permission_level',
         'priority',
-        'parent',
-        'children',
-        'creator',
+        'parent_id',
+        'creator_id',
         'assignees',
         'watchers',
-        'team',
+        'team_id'
     ];
 
-    public function scopeSubTasks(Builder $query): Builder
+    public function scopeSubTasks(Builder $query, $parentId): Builder
     {
-        return $query->where('parent_id',);
-    }
-
-
-    public function children(): HasMany
-    {
-        return $this->hasMany(Task::class, 'children');
+        return $query->where('parent_id', $parentId);
     }
 
     public function creator(): BelongsTo
     {
-        return $this->belongsTo(ClickupUser::class, 'creator');
+        return $this->belongsTo(ClickupUser::class, 'creator_id');
     }
 
     public function assignees(): BelongsTo
@@ -59,7 +50,7 @@ class Task extends Model
 
     public function team(): BelongsTo
     {
-        return $this->belongsTo(Team::class, 'team');
+        return $this->belongsTo(ClickUpTeam::class, 'team_id');
     }
 
     protected function casts()

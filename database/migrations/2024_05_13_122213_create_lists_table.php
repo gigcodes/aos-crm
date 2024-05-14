@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Folder;
+use App\Models\ClickUpFolder;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -8,17 +8,17 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up(): void
     {
-        Schema::create('lists', function (Blueprint $table) {
+        Schema::create('click_up_lists', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('clickup_id');
-            $table->foreignIdFor(Folder::class)->constrained()->cascadeOnDelete();
+            $table->string('click_up_id');
+            $table->foreignIdFor(ClickUpFolder::class)->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('lists');
+        Schema::dropIfExists('click_up_lists');
     }
 };
