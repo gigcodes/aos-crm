@@ -11,7 +11,6 @@ return new class extends Migration {
             $table->id();
             $table->string('name');
             $table->string('clickup_id');
-            $table->softDeletes();
             $table->timestamps();
         });
     }

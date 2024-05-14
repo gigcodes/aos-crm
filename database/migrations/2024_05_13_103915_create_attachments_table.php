@@ -13,7 +13,6 @@ return new class extends Migration {
             $table->string('clickup_id');
             $table->string('file_path');
             $table->foreignIdFor(Task::class)->constrained();
-            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -13,7 +13,6 @@ return new class extends Migration {
             $table->string('name');
             $table->string('clickup_id');
             $table->foreignIdFor(Space::class)->constrained()->cascadeOnDelete();
-            $table->softDeletes();
             $table->timestamps();
         });
     }

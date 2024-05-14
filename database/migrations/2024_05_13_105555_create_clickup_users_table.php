@@ -14,7 +14,6 @@ return new class extends Migration {
             $table->string('email')->nullable();
             $table->string('clickup_id');
             $table->foreignIdFor(Team::class)->constrained();
-            $table->softDeletes();
             $table->timestamps();
         });
     }

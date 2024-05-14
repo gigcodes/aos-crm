@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('author_email')->nullable();
             $table->foreignIdFor(Task::class)->constrained()->cascadeOnDelete();
             $table->string('clickup_id');
-            $table->softDeletes();
             $table->timestamps();
         });
     }
