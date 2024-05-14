@@ -10,6 +10,7 @@
         "filament/filament": "^3.2",
         "laravel/framework": "^11.0",
         "laravel/tinker": "^2.9",
+        "gigcodes/clickup-php": "dev-master",
         "spatie/laravel-webhook-client": "^3.3"
     },
     "require-dev": {
@@ -34,6 +35,10 @@
             "Tests\\": "tests/"
         }
     },
+    "repositories": [{
+        "url": "https://github.com/gigcodes/clickup-php",
+        "type": "git"
+    }],
     "scripts": {
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
