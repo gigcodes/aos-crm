@@ -2,18 +2,21 @@
 
 namespace App\Filament\Pages;
 
-use Filament\Forms\Components\Wizard;
+use App\Filament\Forms\Components\Wizard;
+use Filament\Forms\Components\Concerns\HasMaxWidth;
+use Filament\Forms\Components\Section;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Pages\Concerns\InteractsWithFormActions;
 use Filament\Pages\Page;
-use Filament\Support\Enums\MaxWidth;
-use Illuminate\Contracts\Support\Htmlable;
+use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\HtmlString;
 
 class Onboard extends Page
 {
-    use InteractsWithFormActions;
+    use InteractsWithFormActions, HasMaxWidth;
 
-    protected static string $layout = 'filament-panels::components.layout.simple';
+    protected static string $layout = 'filament.layout.onboard-layout';
 
     protected static string $view = 'filament.pages.onboard';
 
@@ -24,19 +27,40 @@ class Onboard extends Page
         return $form
             ->schema([
                 Wizard::make([
-                    Wizard\Step::make('Order')
+                    Wizard\Step::make('screen_one')
                         ->schema([
-                            // ...
+                            \Filament\Forms\Components\View::make('filament.onboard.screen-one')
                         ]),
-                    Wizard\Step::make('Delivery')
+                    Wizard\Step::make('screen_two')
                         ->schema([
-                            // ...
+                            \Filament\Forms\Components\View::make('filament.onboard.screen-two')
                         ]),
-                    Wizard\Step::make('Billing')
+                    Wizard\Step::make('screen_three')
                         ->schema([
-                            // ...
+                            \Filament\Forms\Components\View::make('filament.onboard.screen-three')
                         ]),
-                ]),
+                    Wizard\Step::make('screen_four')
+                        ->schema([
+                            Section::make('Profile')
+                                ->description('User related information')
+                                ->schema([
+                                    TextInput::make('name'),
+                                    TextInput::make('email'),
+                                    TextInput::make('company'),
+                                    TextInput::make('project'),
+                                ])
+                        ]),
+                ])->submitAction(new HtmlString(
+                        Blade::render(
+                            <<<BLADE
+                            <x-filament::button
+                                type="submit"
+                                size="sm"
+                            >
+                                Submit
+                            </x-filament::button>
+                            BLADE
+                        ))),
             ])
             ->statePath('data');
     }
@@ -44,28 +68,5 @@ class Onboard extends Page
     public function submit()
     {
 
-    }
-
-    public function getTitle(): string|Htmlable
-    {
-        return 'Onboard';
-    }
-
-    public function getHeading(): string|Htmlable
-    {
-        return 'Onboard';
-    }
-
-    public function hasLogo(): bool
-    {
-        return true;
-    }
-
-    protected function getLayoutData(): array
-    {
-        return [
-            'hasTopbar' => false,
-            'maxWidth' => MaxWidth::FiveExtraLarge,
-        ];
     }
 }
