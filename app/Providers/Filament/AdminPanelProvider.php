@@ -63,6 +63,7 @@ class AdminPanelProvider extends PanelProvider
             ])->plugins([
                 FilamentShieldPlugin::make(),
                 ThemesPlugin::make(),
-            ]);
+            ])
+            ->viteTheme('resources/css/filament/admin/theme.css');
     }
 }
