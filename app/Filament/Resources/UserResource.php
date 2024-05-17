@@ -7,9 +7,12 @@ use App\Filament\Resources\UserResource\RelationManagers;
 use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Pages\Page;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules\Password;
 
 class UserResource extends Resource
 {
@@ -31,8 +34,10 @@ class UserResource extends Resource
                         ->maxLength(255),
                     Forms\Components\TextInput::make('password')
                         ->password()
-                        ->required()
-                        ->maxLength(255)
+                        ->rule(Password::default())
+                        ->dehydrateStateUsing(fn (string $state): string => Hash::make($state))
+                        ->dehydrated(fn (?string $state): bool => filled($state))
+                        ->required(fn (Page $livewire) => ($livewire instanceof Pages\CreateUser))
                 ])]);
     }
 

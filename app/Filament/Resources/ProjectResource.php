@@ -49,24 +49,27 @@ class ProjectResource extends Resource
                     ->label('Last Modified Date')
                     ->content(fn(?Project $record): string => $record?->updated_at?->diffForHumans() ?? '-'),
 
-                TextInput::make('name')
-                    ->required(),
+                Section::make([
 
-                DatePicker::make('start_date'),
+                    TextInput::make('name')
+                        ->required(),
 
-                DatePicker::make('deadline'),
+                    DatePicker::make('start_date'),
 
-                Select::make('status')
-                    ->options(Status::class)
-                    ->required()
-                    ->native(false),
+                    DatePicker::make('deadline'),
 
-                TextInput::make('description')
-                    ->required(),
+                    Select::make('status')
+                        ->options(Status::class)
+                        ->required()
+                        ->native(false),
 
-                Select::make('user_id')
-                    ->relationship('assignee', 'name')
-                    ->required(),
+                    TextInput::make('description')
+                        ->required(),
+
+                    Select::make('user_id')
+                        ->relationship('assignee', 'name')
+                        ->required(),
+                ])->columns(2)
             ]);
     }
 

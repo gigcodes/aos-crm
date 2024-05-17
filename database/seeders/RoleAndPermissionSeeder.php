@@ -6,6 +6,7 @@ use App\Enums\Roles;
 use App\Filament\Pages\Onboard;
 use App\Filament\Pages\PasswordResetPage;
 use App\Filament\Resources\ProjectResource;
+use App\Filament\Resources\UserResource;
 use BezhanSalleh\FilamentShield\Support\Utils;
 use Filament\Support\Concerns\EvaluatesClosures;
 use Filament\Widgets\WidgetConfiguration;
@@ -20,6 +21,7 @@ class RoleAndPermissionSeeder extends Seeder
 
     public array $resources = [
         ProjectResource::class,
+        UserResource::class
     ];
 
     public array $pages = [
