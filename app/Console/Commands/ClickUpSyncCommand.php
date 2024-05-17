@@ -16,11 +16,11 @@ class ClickUpSyncCommand extends Command
     public function handle(): void
     {
         $options = new ClickUp\Options(config("services.clickup_api_key"));
-        $clickupClient = new ClickUpClient($options);
+        $clickUpClient = new ClickUpClient($options);
 
-        $user = $clickupClient->user();
+        $user = $clickUpClient->user();
 
-        ClickUpUser::createOrFirst([
+        ClickUpUser::firstOrCreate([
             'click_up_id' => $user->extra()["click_up_id"]
         ],[
             'username' => $user->username(),
