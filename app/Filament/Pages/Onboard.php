@@ -2,70 +2,35 @@
 
 namespace App\Filament\Pages;
 
-use Filament\Forms\Components\Wizard;
-use Filament\Forms\Form;
-use Filament\Pages\Concerns\InteractsWithFormActions;
+use Filament\Forms\Components\Concerns\HasMaxWidth;
 use Filament\Pages\Page;
 use Filament\Support\Enums\MaxWidth;
-use Illuminate\Contracts\Support\Htmlable;
 
 class Onboard extends Page
 {
-    use InteractsWithFormActions;
+    use HasMaxWidth;
 
-    protected static string $layout = 'filament-panels::components.layout.simple';
+    protected static string $layout = 'filament.layout.onboard-layout';
 
     protected static string $view = 'filament.pages.onboard';
 
-    protected static bool $shouldRegisterNavigation = false;
+    protected ?string $heading = 'Let\'s Onboard...';
 
-    public function form(Form $form): Form
+    public function getMaxContentWidth(): MaxWidth|string|null
     {
-        return $form
-            ->schema([
-                Wizard::make([
-                    Wizard\Step::make('Order')
-                        ->schema([
-                            // ...
-                        ]),
-                    Wizard\Step::make('Delivery')
-                        ->schema([
-                            // ...
-                        ]),
-                    Wizard\Step::make('Billing')
-                        ->schema([
-                            // ...
-                        ]),
-                ]),
-            ])
-            ->statePath('data');
+        return MaxWidth::ThreeExtraLarge;
     }
+
+    protected static bool $shouldRegisterNavigation = false;
 
     public function submit()
     {
 
     }
 
-    public function getTitle(): string|Htmlable
-    {
-        return 'Onboard';
-    }
-
-    public function getHeading(): string|Htmlable
-    {
-        return 'Onboard';
-    }
-
     public function hasLogo(): bool
     {
-        return true;
+        return false;
     }
 
-    protected function getLayoutData(): array
-    {
-        return [
-            'hasTopbar' => false,
-            'maxWidth' => MaxWidth::FiveExtraLarge,
-        ];
-    }
 }

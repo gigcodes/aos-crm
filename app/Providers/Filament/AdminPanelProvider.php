@@ -4,9 +4,11 @@ namespace App\Providers\Filament;
 
 use App\Http\Middleware\UserStatusMiddleware;
 use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
+use Filament\FontProviders\GoogleFontProvider;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Filament\MinimalTheme;
 use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
@@ -30,10 +32,13 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->login()
+            ->brandName('AMZOneStep')
+            ->brandLogo(asset('images/logo.png'))
             ->path('admin')
             ->colors([
                 'primary' => Color::Amber,
             ])
+            ->sidebarFullyCollapsibleOnDesktop()
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->pages([
@@ -62,6 +67,11 @@ class AdminPanelProvider extends PanelProvider
             ])->plugins([
                 FilamentShieldPlugin::make(),
                 ThemesPlugin::make(),
-            ]);
+                new MinimalTheme(),
+            ])
+            ->font('IBM Plex Sans',provider: GoogleFontProvider::class)
+            ->colors(MinimalTheme::getColors())
+            ->icons(MinimalTheme::getIcons())
+            ->viteTheme('resources/css/filament/admin/theme.css');
     }
 }
