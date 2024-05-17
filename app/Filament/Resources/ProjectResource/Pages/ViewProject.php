@@ -15,9 +15,6 @@ class ViewProject extends ViewRecord
 
     protected function getFormSchema(): array
     {
-
-        $superAdminRole = ! auth()->user()->hasRole('super_admin');
-
         return [
             TextInput::make('name')->label('Project Name')->disabled(),
             DateTimePicker::make('start_date')->label('Start Date')->disabled(),
@@ -31,7 +28,7 @@ class ViewProject extends ViewRecord
             Select::make('user_id')
                 ->relationship('assignor', 'name')
                 ->label('Assignor')
-                ->visible($superAdminRole)
+                ->visible(auth()->user()->isCustomer())
                 ->disabled(),
         ];
     }

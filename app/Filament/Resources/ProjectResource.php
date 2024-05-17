@@ -120,34 +120,11 @@ class ProjectResource extends Resource
         ];
     }
 
-    public static function taskInfoList(Infolist $infolist): Infolist
-    {
-        return $infolist
-            ->schema([
-                Section::make('Project Details')
-                    ->schema([
-                        TextEntry::make('name')->label('Company Name'),
-                        TextEntry::make('start_date'),
-                        TextEntry::make('deadline'),
-                        TextEntry::make('status'),
-                        TextEntry::make('description'),
-                        TextEntry::make('created_at')->label('Added at'),
-                        TextEntry::make('user_id')->label('Added By'),
-                    ])->columns(),
-            ]);
-    }
-
-
     public static function getEloquentQuery(): Builder
     {
-//        return parent::getEloquentQuery()
-//            ->withoutGlobalScopes([
-//                SoftDeletingScope::class,
-//            ]);
-
         $user = auth()->user();
 
-        if ($user->hasRole('super_admin')) {
+        if ($user->isSuperAdmin()) {
             return parent::getEloquentQuery()
                 ->withoutGlobalScopes([
                     SoftDeletingScope::class,
@@ -156,25 +133,4 @@ class ProjectResource extends Resource
 
         return parent::getEloquentQuery()->where('user_id', $user->id);
     }
-
-//    protected static function getGlobalSearchEloquentQuery(): Builder
-//    {
-//        return parent::getGlobalSearchEloquentQuery()->with(['asignee']);
-//    }
-//
-//    public static function getGloballySearchableAttributes(): array
-//    {
-//        return ['name', 'asignee.email'];
-//    }
-
-//    public static function getGlobalSearchResultDetails(Model $record): array
-//    {
-//        $details = [];
-//
-//        if ($record->asignee) {
-//            $details['Asignee'] = $record->asignee->email;
-//        }
-//
-//        return $details;
-//    }
 }

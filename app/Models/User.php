@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Enums\Roles;
 use BezhanSalleh\FilamentShield\Traits\HasPanelShield;
 use Filament\Models\Contracts\FilamentUser;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -51,4 +52,15 @@ class User extends Authenticatable implements FilamentUser
             'is_password_reset' => 'boolean',
         ];
     }
+
+    public function isSuperAdmin(): bool
+    {
+        return $this->hasRole(Roles::SUPER_ADMIN->value);
+    }
+
+    public function isCustomer(): bool
+    {
+        return $this->hasRole(Roles::CUSTOMER->value);
+    }
+
 }
