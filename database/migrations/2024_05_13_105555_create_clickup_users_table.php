@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\ClickUpTeam;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,7 +14,6 @@ return new class extends Migration {
             $table->string('click_up_id');
             $table->string('initials')->nullable();
             $table->string('profile_picture')->nullable();
-            $table->foreignIdFor(ClickUpTeam::class)->nullable()->constrained();
             $table->timestamps();
         });
     }
