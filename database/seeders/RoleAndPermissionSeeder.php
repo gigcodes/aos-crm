@@ -6,6 +6,8 @@ use App\Enums\Roles;
 use App\Filament\Pages\Onboard;
 use App\Filament\Pages\PasswordResetPage;
 use App\Filament\Resources\ProjectResource;
+use BezhanSalleh\FilamentShield\Resources\RoleResource;
+use BezhanSalleh\FilamentShield\Resources\RoleResource\Pages\ListRoles;
 use BezhanSalleh\FilamentShield\Support\Utils;
 use Filament\Support\Concerns\EvaluatesClosures;
 use Filament\Widgets\WidgetConfiguration;
@@ -20,6 +22,7 @@ class RoleAndPermissionSeeder extends Seeder
 
     public array $resources = [
         ProjectResource::class,
+        RoleResource::class
     ];
 
     public array $pages = [
@@ -28,6 +31,15 @@ class RoleAndPermissionSeeder extends Seeder
     ];
 
     public array $widgets = [
+
+    ];
+
+    public array $customer_pages = [
+        Onboard::class,
+        PasswordResetPage::class
+    ];
+
+    public array $customer_widgets = [
 
     ];
 
@@ -63,8 +75,8 @@ class RoleAndPermissionSeeder extends Seeder
                 return [
                     $name => [
                         'resource' => "{$name}",
-                        'model'    => str($resource::getModel())->afterLast('\\')->toString(),
-                        'fqcn'     => $resource,
+                        'model' => str($resource::getModel())->afterLast('\\')->toString(),
+                        'fqcn' => $resource,
                     ],
                 ];
             })
@@ -91,7 +103,7 @@ class RoleAndPermissionSeeder extends Seeder
 
                 return [
                     $permission => [
-                        'class'      => $page,
+                        'class' => $page,
                         'permission' => $permission,
                     ],
                 ];
@@ -107,7 +119,7 @@ class RoleAndPermissionSeeder extends Seeder
                     Utils::getResourcePermissionPrefixes($resourceEntity['fqcn'])
                 )
                     ->flatMap(function ($permission) use ($resourceEntity) {
-                        $name = $permission.'_'.$resourceEntity['resource'];
+                        $name = $permission . '_' . $resourceEntity['resource'];
 
                         return [
                             $name,
@@ -146,7 +158,7 @@ class RoleAndPermissionSeeder extends Seeder
 
                 return [
                     $permission => [
-                        'class'      => static::getWidgetInstanceFromWidgetConfiguration($widget),
+                        'class' => static::getWidgetInstanceFromWidgetConfiguration($widget),
                         'permission' => $permission,
                     ],
                 ];
@@ -179,7 +191,7 @@ class RoleAndPermissionSeeder extends Seeder
     protected function handlePermissions(): void
     {
         collect($this->getEntitiesPermissions($this->resources, $this->pages, $this->widgets))
-            ->each(callback: fn (string $permission_name) => Permission::findOrCreate($permission_name));
+            ->each(callback: fn(string $permission_name) => Permission::findOrCreate($permission_name));
     }
 
     /**
@@ -191,7 +203,7 @@ class RoleAndPermissionSeeder extends Seeder
             ->givePermissionTo(Permission::all());
 
         Role::findOrCreate(Roles::CUSTOMER->value)
-            ->givePermissionTo($this->getEntitiesPermissions($this->customer_resources));
+            ->givePermissionTo($this->getEntitiesPermissions($this->customer_resources, $this->customer_pages, $this->customer_widgets));
     }
 
     protected static function getWidgetInstanceFromWidgetConfiguration(string|WidgetConfiguration $widget): string

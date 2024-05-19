@@ -8,9 +8,8 @@
         "php": "^8.2",
         "bezhansalleh/filament-shield": "^3.2",
         "filament/filament": "^3.2",
-        "filament/minimal-theme": "^3.0",
         "gigcodes/clickup-php": "dev-master",
-        "hasnayeen/themes": "^3.0",
+        "gigcodes/filament-minimal-theme": "dev-main",
         "laravel/framework": "^11.0",
         "laravel/tinker": "^2.9",
         "spatie/laravel-webhook-client": "^3.3"
@@ -44,7 +43,7 @@
         },
         {
             "type": "git",
-            "url": "https://github.com/kkz6/minimal-theme"
+            "url": "https://github.com/gigcodes/filament-minimal-theme"
         }
     ],
     "scripts": {
