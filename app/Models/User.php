@@ -47,8 +47,8 @@ class User extends Authenticatable implements FilamentUser
     {
         return [
             'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-            'is_onboarded' => 'boolean',
+            'password'          => 'hashed',
+            'is_onboarded'      => 'boolean',
             'is_password_reset' => 'boolean',
         ];
     }
@@ -62,5 +62,4 @@ class User extends Authenticatable implements FilamentUser
     {
         return $this->hasRole(Roles::CUSTOMER->value);
     }
-
 }

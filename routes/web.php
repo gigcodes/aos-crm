@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\ClickupController;
 use Illuminate\Support\Facades\Route;
 
 Route::redirect('/', '/login');

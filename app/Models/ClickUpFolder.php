@@ -11,7 +11,7 @@ class ClickUpFolder extends Model
     protected $fillable = [
         'name',
         'click_up_id',
-        'space_id'
+        'space_id',
     ];
 
     public function space(): BelongsTo

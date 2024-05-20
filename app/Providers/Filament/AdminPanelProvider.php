@@ -66,7 +66,7 @@ class AdminPanelProvider extends PanelProvider
                 FilamentShieldPlugin::make(),
                 new MinimalTheme(),
             ])
-            ->font('IBM Plex Sans',provider: GoogleFontProvider::class)
+            ->font('IBM Plex Sans', provider: GoogleFontProvider::class)
             ->colors(MinimalTheme::getColors())
             ->icons(MinimalTheme::getIcons())
             ->viteTheme('resources/css/filament/admin/theme.css');
