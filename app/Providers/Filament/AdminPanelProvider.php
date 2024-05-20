@@ -32,6 +32,7 @@ class AdminPanelProvider extends PanelProvider
             ->login()
             ->brandName('AMZOneStep')
             ->brandLogo(asset('images/logo.png'))
+            ->darkMode(false)
             ->path('admin')
             ->colors([
                 'primary' => Color::Amber,
