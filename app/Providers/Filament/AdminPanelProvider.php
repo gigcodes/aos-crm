@@ -4,16 +4,16 @@ namespace App\Providers\Filament;
 
 use App\Http\Middleware\UserStatusMiddleware;
 use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
+use Filament\FontProviders\GoogleFontProvider;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Filament\MinimalTheme;
 use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
 use Filament\Widgets;
-use Hasnayeen\Themes\Http\Middleware\SetTheme;
-use Hasnayeen\Themes\ThemesPlugin;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -30,10 +30,14 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->login()
+            ->brandName('AMZOneStep')
+            ->brandLogo(asset('images/logo.png'))
+            ->darkMode(false)
             ->path('admin')
             ->colors([
                 'primary' => Color::Amber,
             ])
+            ->sidebarFullyCollapsibleOnDesktop()
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->pages([
@@ -55,13 +59,16 @@ class AdminPanelProvider extends PanelProvider
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
                 UserStatusMiddleware::class,
-                SetTheme::class
             ])
             ->authMiddleware([
                 Authenticate::class,
             ])->plugins([
                 FilamentShieldPlugin::make(),
-                ThemesPlugin::make(),
-            ]);
+                new MinimalTheme(),
+            ])
+            ->font('IBM Plex Sans', provider: GoogleFontProvider::class)
+            ->colors(MinimalTheme::getColors())
+            ->icons(MinimalTheme::getIcons())
+            ->viteTheme('resources/css/filament/admin/theme.css');
     }
 }

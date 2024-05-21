@@ -3,9 +3,9 @@
 namespace App\Console\Commands;
 
 use App\Models\ClickUpUser;
-use Illuminate\Console\Command;
-use ClickUp\Client as ClickUpClient;
 use ClickUp;
+use ClickUp\Client as ClickUpClient;
+use Illuminate\Console\Command;
 
 class ClickUpSyncCommand extends Command
 {
@@ -15,21 +15,19 @@ class ClickUpSyncCommand extends Command
 
     public function handle(): void
     {
-        $options = new ClickUp\Options(config("services.clickup_api_key"));
+        $options       = new ClickUp\Options(config('services.clickup_api_key'));
         $clickupClient = new ClickUpClient($options);
 
         $user = $clickupClient->user();
 
         ClickUpUser::createOrFirst([
-            'click_up_id' => $user->extra()["click_up_id"]
-        ],[
-            'username' => $user->username(),
-            'email' => $user->extra()['email'],
-            'initials' => $user->initials(),
+            'click_up_id' => $user->extra()['click_up_id'],
+        ], [
+            'username'        => $user->username(),
+            'email'           => $user->extra()['email'],
+            'initials'        => $user->initials(),
             'profile_picture' => $user->profilePicture(),
         ]);
-
-
 
     }
 }

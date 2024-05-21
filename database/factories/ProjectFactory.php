@@ -13,12 +13,12 @@ class ProjectFactory extends Factory
     public function definition(): array
     {
         return [
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
-            'name' => $this->faker->name(),
-            'start_date' => Carbon::now(),
-            'deadline' => Carbon::now(),
-            'status' => $this->faker->word(),
+            'created_at'  => Carbon::now(),
+            'updated_at'  => Carbon::now(),
+            'name'        => $this->faker->name(),
+            'start_date'  => Carbon::now(),
+            'deadline'    => Carbon::now(),
+            'status'      => $this->faker->word(),
             'description' => $this->faker->text(),
         ];
     }

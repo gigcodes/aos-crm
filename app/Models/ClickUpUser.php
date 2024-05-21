@@ -13,7 +13,7 @@ class ClickUpUser extends Model
         'click_up_id',
         'initials',
         'profile_picture',
-        'team_id'
+        'team_id',
     ];
 
     public function teams(): BelongsToMany

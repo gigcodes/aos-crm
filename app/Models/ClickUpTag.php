@@ -18,5 +18,4 @@ class ClickUpTag extends Model
     {
         return $this->belongsTo(ClickUpTaskComment::class);
     }
-
 }

@@ -53,7 +53,7 @@ class PasswordResetPage extends Page
         $data = $this->form->getState();
 
         $user->update([
-            'password' => Hash::make($data['password']),
+            'password'          => Hash::make($data['password']),
             'is_password_reset' => true,
         ]);
 

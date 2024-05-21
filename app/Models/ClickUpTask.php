@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Builder;
 
 class ClickUpTask extends Model
 {
@@ -21,7 +21,7 @@ class ClickUpTask extends Model
         'priority',
         'parent_id',
         'creator_id',
-        'team_id'
+        'team_id',
     ];
 
     public function scopeSubTasks(Builder $query, $parentId): Builder
@@ -63,7 +63,7 @@ class ClickUpTask extends Model
     {
         return [
             'start_date' => 'datetime',
-            'due_date' => 'datetime',
+            'due_date'   => 'datetime',
         ];
     }
 }

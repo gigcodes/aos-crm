@@ -7,6 +7,7 @@ use App\Filament\Pages\Onboard;
 use App\Filament\Pages\PasswordResetPage;
 use App\Filament\Resources\ProjectResource;
 use App\Filament\Resources\UserResource;
+use BezhanSalleh\FilamentShield\Resources\RoleResource;
 use BezhanSalleh\FilamentShield\Support\Utils;
 use Filament\Support\Concerns\EvaluatesClosures;
 use Filament\Widgets\WidgetConfiguration;
@@ -21,18 +22,27 @@ class RoleAndPermissionSeeder extends Seeder
 
     public array $resources = [
         ProjectResource::class,
-        UserResource::class
+        UserResource::class,
+        RoleResource::class,
     ];
 
     public array $pages = [
         Onboard::class,
-        PasswordResetPage::class
+        PasswordResetPage::class,
     ];
 
     public array $widgets = [
 
     ];
 
+    public array $customer_pages = [
+        Onboard::class,
+        PasswordResetPage::class,
+    ];
+
+    public array $customer_widgets = [
+
+    ];
 
     public array $customer_resources = [
         ProjectResource::class,
@@ -193,7 +203,7 @@ class RoleAndPermissionSeeder extends Seeder
             ->givePermissionTo(Permission::all());
 
         Role::findOrCreate(Roles::CUSTOMER->value)
-            ->givePermissionTo($this->getEntitiesPermissions($this->customer_resources));
+            ->givePermissionTo($this->getEntitiesPermissions($this->customer_resources, $this->customer_pages, $this->customer_widgets));
     }
 
     protected static function getWidgetInstanceFromWidgetConfiguration(string|WidgetConfiguration $widget): string
