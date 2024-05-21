@@ -32,6 +32,7 @@ class AdminPanelProvider extends PanelProvider
             ->login()
             ->brandName('AMZOneStep')
             ->brandLogo(asset('images/logo.png'))
+            ->darkMode(false)
             ->path('admin')
             ->colors([
                 'primary' => Color::Amber,
@@ -65,7 +66,7 @@ class AdminPanelProvider extends PanelProvider
                 FilamentShieldPlugin::make(),
                 new MinimalTheme(),
             ])
-            ->font('IBM Plex Sans',provider: GoogleFontProvider::class)
+            ->font('IBM Plex Sans', provider: GoogleFontProvider::class)
             ->colors(MinimalTheme::getColors())
             ->icons(MinimalTheme::getIcons())
             ->viteTheme('resources/css/filament/admin/theme.css');

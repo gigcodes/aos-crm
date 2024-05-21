@@ -12,7 +12,7 @@ class ClickUpTaskComment extends Model
         'author_name',
         'author_email',
         'click_up_id',
-        'task_id'
+        'task_id',
     ];
 
     public function task(): BelongsTo

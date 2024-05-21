@@ -17,9 +17,9 @@ class UserStatusMiddleware
             return $next($request);
         }
 
-        $user = Auth::user();
+        $user              = Auth::user();
         $passwordResetPage = 'filament.admin.pages.password-reset-page';
-        $onboardPage = 'filament.admin.pages.onboard';
+        $onboardPage       = 'filament.admin.pages.onboard';
 
         // Prioritize redirect to password reset page if user not completed both password reset and onboard
         if (! $user->is_password_reset && ! $user->is_onboarded) {

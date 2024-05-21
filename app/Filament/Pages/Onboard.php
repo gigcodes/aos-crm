@@ -32,5 +32,4 @@ class Onboard extends Page
     {
         return false;
     }
-
 }

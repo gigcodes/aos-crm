@@ -8,8 +8,8 @@ class Onboarding extends Component
 {
     public function render()
     {
-        return view('livewire.onboarding',[
-            'user' => auth()->user()
+        return view('livewire.onboarding', [
+            'user' => auth()->user(),
         ]);
     }
 }

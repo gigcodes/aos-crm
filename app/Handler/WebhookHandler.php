@@ -23,7 +23,7 @@ class WebhookHandler extends ProcessWebhookJob
                 return;
             }
             $temporaryPassword = Str::random(10);
-            $dataExists = User::where('email', $userData['email'])->exists();
+            $dataExists        = User::where('email', $userData['email'])->exists();
 
             if (! $dataExists) {
                 $user = User::firstOrCreate(['email' => $userData['email']], [...$userData, 'password' => Hash::make($temporaryPassword)]);
